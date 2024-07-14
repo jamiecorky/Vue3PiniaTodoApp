@@ -16,7 +16,7 @@ const props = defineProps({
 </script>
 
 <template>
-    <div class="p-4 flex justify-center align-middle bg-slate-200 rounded-xl h-80">
+    <div class="p-4 flex justify-center align-middle bg-slate-200 rounded-xl h-80 border border-gray-400">
         <h6>{{ props.todo }}</h6>
         <!-- <p>{{ description }}</p> -->
         <span v-if="completed">{{ completed }}</span>

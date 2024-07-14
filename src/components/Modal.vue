@@ -1,13 +1,27 @@
-<script setup></script>
+<script setup>
+const props = defineProps({
+    show: Boolean
+});
+</script>
 
 <template>
-    <header>
-        <h1>Add a new ToDo</h1>
-    </header>
+    <div v-if="props.show" class="fixed inset-0 bg-black/80 grid place-items-center">
+        <div class="bg-white p-4 w-[90vw] max-w-[600px]">
+            <header>
+                <slot name="header"></slot>
+            </header>
 
-    <div>main text</div>
+            <div>
+                <slot></slot>
+            </div>
 
-    <footer>footer</footer>
+            <footer>
+                <slot name="footer">
+                    <button @click="$emit('close')">close</button>
+                </slot>
+            </footer>
+        </div>
+    </div>
 </template>
 
 <style scoped></style>
