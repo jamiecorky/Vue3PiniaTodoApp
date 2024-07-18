@@ -4,6 +4,7 @@ import { useToDoStore } from '@/stores/ToDoStore';
 import { useModalStore } from '@/stores/ModalStore';
 import ToDoItem from '@/components/ToDoItem.vue';
 import Modal from '@/components/Modal.vue';
+import Snackbar from '@/components/Snackbar.vue';
 
 let toDoStore = useToDoStore();
 let modalStore = useModalStore();
@@ -53,8 +54,8 @@ let newToDoName = ref('');
             </div>
         </div>
     </main>
-
-    <Modal :show="modalStore.showModal" @close="modalStore.closeModal()">
+    <Snackbar />
+    <Modal @close="modalStore.closeModal()">
         <template #header>
             <h1>Add a new ToDo</h1>
         </template>

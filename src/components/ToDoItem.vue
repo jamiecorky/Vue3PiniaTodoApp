@@ -19,13 +19,13 @@ const props = defineProps({
     },
     id: {
         type: Number,
-        required: true
+        required: false
     }
 });
 </script>
 
 <template>
-    <div class="p-4 flex justify-center items-center gap-4 bg-slate-200 rounded-xl border border-gray-400 shadow-md">
+    <div class="p-4 flex items-center justify-between gap-4 bg-slate-200 rounded-xl border border-gray-400 shadow-md">
         <h6>{{ todo }}</h6>
         <CheckCircle v-if="completed" class="text-green-500 flex-none" />
         <button
