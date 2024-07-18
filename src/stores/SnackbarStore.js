@@ -8,18 +8,19 @@ export const useSnackbarStore = defineStore('Snackbar', () => {
 
     // Opens snackbar - defaults added in case they're not set
     const openSnackbar = (text = 'Action Complete', role = 'success') => {
-        // This closes the snackbar if there is one already open then sets a 0.3 sec gap before opening a new one
-        let timeout = 0;
-        if ((show.value = true)) {
+        // Close the snackbar if it is already open
+        if (show.value) {
             show.value = false;
-            timeout = 300;
         }
+
+        // Set a timeout before opening the new snackbar
         setTimeout(() => {
             title.value = text;
             type.value = role;
             show.value = true;
-        }, timeout);
-        // This now waits 5 seconds before closing the snackbar
+        }, show.value ? 300 : 0);
+
+        // Close the snackbar after 5 seconds
         setTimeout(() => {
             show.value = false;
         }, 5000);
@@ -28,6 +29,12 @@ export const useSnackbarStore = defineStore('Snackbar', () => {
     const closeSnackbar = () => {
         show.value = false;
     };
-
-    return { show, title, type, openSnackbar, closeSnackbar };
+    
+    return {
+        show,
+        title,
+        type,
+        openSnackbar,
+        closeSnackbar
+    };
 });

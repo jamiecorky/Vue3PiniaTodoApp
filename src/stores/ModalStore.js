@@ -12,5 +12,9 @@ export const useModalStore = defineStore('Modal', () => {
         show.value = false;
     };
 
-    return { show, openModal, closeModal };
+    return {
+        show,
+        openModal,
+        closeModal
+    };
 });
