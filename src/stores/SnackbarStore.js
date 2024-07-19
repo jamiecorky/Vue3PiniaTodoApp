@@ -29,7 +29,7 @@ export const useSnackbarStore = defineStore('Snackbar', () => {
     const closeSnackbar = () => {
         show.value = false;
     };
-    
+
     return {
         show,
         title,

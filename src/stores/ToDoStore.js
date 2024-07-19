@@ -14,7 +14,7 @@ export const useToDoStore = defineStore('ToDos', () => {
         try {
             const response = await axios.get('https://dummyjson.com/todos/random/10');
             toDos.value = response.data;
-            snackbarStore.openSnackbar('Welcome to the ToDo App', 'info');
+            snackbarStore.openSnackbar('Welcome to the todo app', 'info');
         } catch (error) {
             console.log(error);
             snackbarStore.openSnackbar('Failed to fetch initial todos', 'error');
@@ -38,7 +38,7 @@ export const useToDoStore = defineStore('ToDos', () => {
                     userId: response.data.userId
                 };
                 toDos.value.push(newToDo);
-                snackbarStore.openSnackbar('ToDo Added', 'success');
+                snackbarStore.openSnackbar('Todo added', 'success');
             }
         } catch (error) {
             console.log(error);
@@ -61,11 +61,11 @@ export const useToDoStore = defineStore('ToDos', () => {
                     }
                     return toDo;
                 });
-                snackbarStore.openSnackbar('ToDo marked as complete', 'success');
+                snackbarStore.openSnackbar('Todo marked as complete', 'success');
             }
         } catch (error) {
             console.log(error);
-            snackbarStore.openSnackbar('Failed to mark ToDo as complete', 'error');
+            snackbarStore.openSnackbar('Failed to mark todo as complete', 'error');
         }
     };
 
@@ -84,11 +84,35 @@ export const useToDoStore = defineStore('ToDos', () => {
                     }
                     return toDo;
                 });
-                snackbarStore.openSnackbar('ToDo marked as incomplete', 'success');
+                snackbarStore.openSnackbar('Todo marked as incomplete', 'success');
             }
         } catch (error) {
             console.log(error);
-            snackbarStore.openSnackbar('Failed to mark ToDo as incomplete', 'error');
+            snackbarStore.openSnackbar('Failed to mark todo as incomplete', 'error');
+        }
+    };
+
+    const editToDo = async (id, toDoName) => {
+        try {
+            const response = await axios.put(`https://dummyjson.com/todos/${id}`, {
+                todo: toDoName
+            });
+            if (response.status === 200) {
+
+                toDos.value = toDos.value.map((toDo) => {
+                    if (toDo.id === id) {
+                        return {
+                            ...toDo,
+                            todo: toDoName
+                        };
+                    }
+                    return toDo;
+                });
+                snackbarStore.openSnackbar('Todo name updated', 'success');
+            }
+        } catch (error) {
+            console.log(error);
+            snackbarStore.openSnackbar('Failed to mark todo as incomplete', 'error');
         }
     };
 
@@ -97,11 +121,11 @@ export const useToDoStore = defineStore('ToDos', () => {
             const response = await axios.delete(`https://dummyjson.com/todos/${id}`);
             if (response.status === 200) {
                 toDos.value = toDos.value.filter((toDo) => toDo.id !== id);
-                snackbarStore.openSnackbar('ToDo deleted', 'success');
+                snackbarStore.openSnackbar('todo deleted', 'success');
             }
         } catch (error) {
             console.log(error);
-            snackbarStore.openSnackbar('Failed to delete ToDo', 'error');
+            snackbarStore.openSnackbar('Failed to delete todo', 'error');
         }
     };
 
@@ -114,6 +138,7 @@ export const useToDoStore = defineStore('ToDos', () => {
         incomplete,
         markAsComplete,
         markAsIncomplete,
+        editToDo,
         deleteToDo
     };
 });

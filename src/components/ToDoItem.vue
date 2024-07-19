@@ -1,7 +1,10 @@
 <script setup>
-import CloseIcon from './icons/CloseIcon.vue';
 import { useToDoStore } from '@/stores/ToDoStore';
-import { ref } from 'vue';
+import { computed, ref, watchEffect } from 'vue';
+import DeleteIcon from './icons/DeleteIcon.vue';
+import CloseIcon from './icons/CloseIcon.vue';
+import EditIcon from './icons/EditIcon.vue';
+import CheckCircleIcon from '@/components/icons/CheckCircleIcon.vue';
 
 const props = defineProps({
     todo: {
@@ -21,16 +24,38 @@ const props = defineProps({
         required: false
     }
 });
-
+const model = defineModel()
 const toDoStore = useToDoStore();
+const editable = ref(false);
+const todoText = ref(props.todo);
 
+const inputOrText = computed(() => editable.value ? 'input' : 'span');
 
+const updateTodoText = () => {
+    if (props.todo !== todoText.value) {
+        console.log('updateTodoText', todoText.value)
+        toDoStore.editToDo(props.id, todoText.value)
+    }
+        editable.value = false;
+}
 </script>
 
 <template>
     <div class="p-4 flex items-center justify-between gap-4 bg-slate-200 rounded-xl border border-gray-400 shadow-md">
-        <h6>{{ todo }}</h6>
+        <!-- Added title for tooltip of full text -->
+        <div v-if="editable" class="w-full relative"> 
+            <input type="text" :title="todoText" :value="todoText" @input="todoText = $event.target.value" @keyup.enter="updateTodoText()" class="w-full border border-slate-300 rounded-lg h-10 p-4 pr-10" />
+            <button @click="updateTodoText()" @keyup.enter="updateTodoText()" class="absolute inset-y-0 right-0 pr-3 flex items-center text-green-500 hover:text-green-600">
+                <CheckCircleIcon />
+            </button>
+        </div>
+        <span v-else>{{ todo }}</span>
+
         <div class="flex gap-2">
+            <button @click="editable = !editable" class="hover:bg-slate-300 rounded-xl">
+                <EditIcon v-if="!editable" />
+                <CloseIcon v-if="editable" />
+            </button>
             <button
                 v-if="completed"
                 class="check-icon-reverse"
@@ -43,7 +68,7 @@ const toDoStore = useToDoStore();
             >
             </button>
             <button @click="toDoStore.deleteToDo(id)" class="hover:bg-slate-300 rounded-xl">
-                <CloseIcon />
+                <DeleteIcon />
             </button>
         </div>
     </div>
