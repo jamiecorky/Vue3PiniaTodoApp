@@ -9,75 +9,42 @@ const { type, title, show } = storeToRefs(snackbarStore);
 
 <template>
     <transition name="slide" appear>
-        <div class="modal" :class="type" v-if="show">
-            <div class="header">
-                <div class="title">{{ title }}</div>
-                <CloseIcon class="icon" @click="snackbarStore.closeSnackbar()" />
+        <div class="fixed top-16 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 max-w-xs w-[80vw] rounded-lg p-4" :class="type" v-if="show">
+            <div class="flex justify-between items-center m-2">
+                <div class="m-0 font-semibold">{{ title }}</div>
+                <CloseIcon class="w-11 cursor-pointer transition-opacity m-0 hover:opacity-80" @click="snackbarStore.closeSnackbar()" />
             </div>
         </div>
     </transition>
 </template>
 
 <style scoped>
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0.5rem;
-}
-.title {
-    margin: 0;
-    font-weight: 600;
-}
-
-.icon {
-    width: 2.2rem;
-    cursor: pointer;
-    transition: opacity 0.3s ease-out;
-    margin: 0;
-}
-
-.icon:hover {
-    opacity: 0.8;
-}
-
+/* Feels cleaner to have these classes down here since they're binding based on type */
 .error {
-    background-color: #e23636;
-    color: #fff;
+    @apply bg-red-600 text-white;
 }
 
 .success {
-    background-color: #82dd55;
-    color: #000;
+    @apply bg-green-500 text-black;
 }
 
 .warning {
-    background-color: #edb95e;
-    color: #fff;
+    @apply bg-yellow-500 text-white;
 }
 
 .info {
-    background-color: #2b7aef;
-    color: #000;
+    @apply bg-blue-500 text-black;
 }
 
-.modal {
-    position: fixed;
-    top: 4rem;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 998;
-    max-width: 32rem;
-    width: 80vw;
-    border-radius: 16px;
-    padding: 1rem;
-}
+/* Transition styles */
 .slide-enter-active,
 .slide-leave-active {
-    transition: transform 0.8s;
+    @apply transition-transform duration-[800];
 }
+
 .slide-enter,
 .slide-leave-to {
-    transform: translateX(-50%) translateY(-100vh);
+    @apply -translate-x-1/2 -translate-y-full;
 }
 </style>
+

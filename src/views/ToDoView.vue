@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import { useToDoStore } from '@/stores/ToDoStore';
 import { useModalStore } from '@/stores/ModalStore';
-import ToDoItem from '@/components/ToDoItem.vue';
+import ToDoColumn from '@/components/ToDoColumn.vue';
 import Modal from '@/components/Modal.vue';
 import Snackbar from '@/components/Snackbar.vue';
 
@@ -24,34 +24,9 @@ let newToDoName = ref('');
         <h1 class="text-3xl font-bold text-center">ToDo Page</h1>
         <div class="grid grid-cols-1 md:grid-cols-2 m-4 gap-4">
             <!-- Filtered in store to show only incomplete in first column -->
-            <div>
-                <h2 class="text-xl text-center">Incomplete</h2>
-                <div class="grid grid-cols-2 m-8 gap-4">
-                    <ToDoItem
-                        v-for="toDo in toDoStore.incomplete"
-                        :key="toDo.id"
-                        :id="toDo.id"
-                        :todo="toDo.todo"
-                        :completed="toDo.completed"
-                        description="no"
-                    />
-                </div>
-            </div>
-
+            <ToDoColumn title="Incomplete" />
             <!-- Filtered in store to show only complete in second column -->
-            <div>
-                <h2 class="text-xl text-center">Complete</h2>
-                <div class="grid grid-cols-2 m-8 gap-4">
-                    <ToDoItem
-                        v-for="toDo in toDoStore.completed"
-                        :key="toDo.id"
-                        :id="toDo.id"
-                        :todo="toDo.todo"
-                        :completed="toDo.completed"
-                        description="no"
-                    />
-                </div>
-            </div>
+            <ToDoColumn title="Complete" />
         </div>
     </main>
     <Snackbar />
@@ -61,7 +36,7 @@ let newToDoName = ref('');
         </template>
         <template #default>
             <div class="flex gap-4">
-                <input class="flex-1" placeholder="Enter description here" v-model="newToDoName" />
+                <input class="flex-1 rounded-xl pl-4 border border-slate-300" placeholder="Enter description here" v-model="newToDoName" />
                 <button
                     @click="toDoStore.addToDo(newToDoName)"
                     class="bg-green-300 rounded-xl px-3 py-2 hover:bg-green-400"

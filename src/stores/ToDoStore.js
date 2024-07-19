@@ -31,7 +31,6 @@ export const useToDoStore = defineStore('ToDos', () => {
             });
             if (response.status === 201) {
                 // Because this post request doesn't actually update data on the server, I'm pushing to the array as if it was updated. Usually I'd run getInitialToDos() to repopulate
-
                 const newToDo = {
                     todo: toDo,
                     completed: false,
@@ -70,6 +69,42 @@ export const useToDoStore = defineStore('ToDos', () => {
         }
     };
 
+    const markAsIncomplete = async (id) => {
+        try {
+            const response = await axios.put(`https://dummyjson.com/todos/${id}`, {
+                completed: false
+            });
+            if (response.status === 200) {
+                toDos.value = toDos.value.map((toDo) => {
+                    if (toDo.id === id) {
+                        return {
+                            ...toDo,
+                            completed: false
+                        };
+                    }
+                    return toDo;
+                });
+                snackbarStore.openSnackbar('ToDo marked as incomplete', 'success');
+            }
+        } catch (error) {
+            console.log(error);
+            snackbarStore.openSnackbar('Failed to mark ToDo as incomplete', 'error');
+        }
+    };
+
+    const deleteToDo = async (id) => {
+        try {
+            const response = await axios.delete(`https://dummyjson.com/todos/${id}`);
+            if (response.status === 200) {
+                toDos.value = toDos.value.filter((toDo) => toDo.id !== id);
+                snackbarStore.openSnackbar('ToDo deleted', 'success');
+            }
+        } catch (error) {
+            console.log(error);
+            snackbarStore.openSnackbar('Failed to delete ToDo', 'error');
+        }
+    };
+
     getInitialToDos();
 
     return {
@@ -77,6 +112,8 @@ export const useToDoStore = defineStore('ToDos', () => {
         addToDo,
         completed,
         incomplete,
-        markAsComplete
+        markAsComplete,
+        markAsIncomplete,
+        deleteToDo
     };
 });
