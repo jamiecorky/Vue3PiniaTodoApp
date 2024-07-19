@@ -21,7 +21,7 @@ let newToDoName = ref('');
             <button
                 type="button"
                 @click="modalStore.openModal()"
-                class="rounded-md bg-green-500 flex no-wrap gap-4 px-4 py-3 text-sm font-medium text-black hover:bg-green-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
+                class="rounded-md bg-green-500 my-4 flex mx-auto no-wrap gap-4 px-4 py-3 text-sm font-medium text-black hover:bg-green-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
             >
                 <span>Add New ToDo</span>
                 <AddTaskIcon />

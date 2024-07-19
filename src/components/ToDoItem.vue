@@ -31,13 +31,13 @@ const todoText = ref(props.todo);
 
 const inputOrText = computed(() => editable.value ? 'input' : 'span');
 
+// Only updated if the value is changed, changes editable regardless
 const updateTodoText = () => {
-    if (props.todo !== todoText.value) {
-        console.log('updateTodoText', todoText.value)
-        toDoStore.editToDo(props.id, todoText.value)
+    if (props.todo !== todoText.value && todoText.value !== '') {
+        toDoStore.editToDo(props.id, todoText.value);
     }
-        editable.value = false;
-}
+    editable.value = false;
+};
 </script>
 
 <template>
