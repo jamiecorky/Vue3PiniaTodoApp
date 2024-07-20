@@ -1,11 +1,7 @@
 <script setup>
 import { useModalStore } from '@/stores/ModalStore';
-
-const props = defineProps({
-    show: Boolean
-});
-
 let modalStore = useModalStore();
+
 </script>
 
 <template>
@@ -22,6 +18,7 @@ let modalStore = useModalStore();
             <footer>
                 <slot name="footer">
                     <button
+                        id="close-modal"
                         class="bg-slate-300 rounded-xl px-3 py-2 hover:bg-slate-400"
                         @click="modalStore.closeModal()"
                     >

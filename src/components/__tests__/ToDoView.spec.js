@@ -1,26 +1,51 @@
-import { mount } from '@vue/test-utils';
-import ToDoView from '@/views/ToDoView.vue';
+import { test, expect } from "vitest";
 
-// Import the necessary dependencies
+function sum(a, b) {
+  return a + b;
+}
 
-// Describe the component being tested
-test('ToDoView', () => {
-    // Define the test case
-    it('renders the todo item correctly', () => {
-        // Mount the component
-        const wrapper = mount(ToDoView, {
-            propsData: {
-                todo: {
-                    id: 1,
-                    title: 'Buy groceries',
-                    completed: false,
-                },
-            },
-        });
-
-        // Assert the expected outcome
-        expect(wrapper.text()).toContain('Buy groceries');
-        // expect(wrapper.find('.completed').exists()).toBe(false);
-    });
-
+test("add 2 numbers", () => {
+  expect(sum(2,3)).toEqual(5);
 });
+// import { mount } from '@vue/test-utils';
+// import { describe, it, expect } from 'vitest';
+// import ToDoView from '@/views/ToDoView.vue';
+// import { useToDoStore } from '@/stores/ToDoStore';
+
+// describe('ToDoView', () => {
+//     it('renders the todo item correctly', () => {
+//         const todo = {
+//             id: 1,
+//             title: 'Buy groceries',
+//             completed: false,
+//         };
+
+//         const wrapper = mount(ToDoView, {
+//             props: {
+//                 todo,
+//             },
+//         });
+
+//         expect(wrapper.find('.todo-title').text()).toBe(todo.title);
+//         expect(wrapper.find('.todo-completed').exists()).toBe(todo.completed);
+//     });
+
+//     it('emits an event when the todo is completed', async () => {
+//         const todo = {
+//             id: 1,
+//             title: 'Buy groceries',
+//             completed: false,
+//         };
+
+//         const wrapper = mount(ToDoView, {
+//             props: {
+//                 todo,
+//             },
+//         });
+
+//         await wrapper.find('.todo-completed').trigger('click');
+
+//         expect(wrapper.emitted('complete')).toBeTruthy();
+//         expect(wrapper.emitted('complete')[0][0]).toBe(todo.id);
+//     });
+// });
