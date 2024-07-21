@@ -2,7 +2,6 @@ import axios from 'axios';
 import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 import { useSnackbarStore } from './SnackbarStore';
-import { useModalStore } from './ModalStore';
 
 export const useToDoStore = defineStore('ToDos', () => {
     let snackbarStore = useSnackbarStore();
@@ -137,6 +136,7 @@ export const useToDoStore = defineStore('ToDos', () => {
     return {
         toDos,
         addToDo,
+        getInitialToDos,
         completed,
         incomplete,
         markAsComplete,

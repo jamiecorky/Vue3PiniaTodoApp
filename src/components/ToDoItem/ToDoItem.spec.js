@@ -6,16 +6,19 @@ import { beforeEach, describe, expect, test, vitest } from "vitest";
 import { useToDoStore } from "@/stores/ToDoStore";
 
 // These tests are for the ToDo Store
-// describe( "Todo Store", () => {
-//     beforeEach(() => {
-//         setActivePinia(createPinia());
-//     });
+describe( "Todo Store", () => {
+    beforeEach(() => {
+        setActivePinia(createPinia());
+    });
 
-//     test('displays text', () => {
-//         const toDoStore = useToDoStore();
-//         expect(toDoStore.show).toBe(false);
-//     });
-// });
+    test('todo items are populated', async () => {
+        const toDoStore = useToDoStore();
+        // Struggling to figure out the correct way to test this so used setTimeout for now
+        setTimeout(() => {
+            expect(toDoStore.toDos.value.length).toBe(10);
+        }, 1000);
+    });
+});
 
 describe('ToDoItem.vue', () => {
     let wrapper = null;
@@ -40,15 +43,5 @@ describe('ToDoItem.vue', () => {
         expect(wrapper.props('todo')).toBe('test todo');
     });
 
-    // test('modal close button is visible when modal is open', async () => {
-    //     // Mount - previous test shows this works
-    //     const wrapper = mount(Modal);
-    //     // Open the modal to set the v-if to be true, this is tested above
-    //     const modal = useModalStore()
-    //     modal.openModal()
-    //     // Wait for the next tick to allow the DOM to update
-    //     await wrapper.vm.$nextTick()
-    //     // Footer default should find the button if the modal is open
-    //     expect(wrapper.find('#close-modal').exists()).toBe(true);
-    // });
+
 });

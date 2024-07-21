@@ -41,7 +41,7 @@ const updateTodoText = () => {
         <!-- Added title for tooltip of full text -->
         <div v-if="editable" class="w-full relative">
             <input type="text" :title="todoText" :value="todoText" @input="todoText = $event.target.value" @keyup.enter="updateTodoText()" class="w-full border border-slate-300 rounded-lg h-10 p-4 pr-10" />
-            <button @click="updateTodoText()" @keyup.enter="updateTodoText()" class="absolute inset-y-0 right-0 pr-3 flex items-center text-green-500 hover:text-green-600">
+            <button @click="updateTodoText()" class="absolute inset-y-0 right-0 pr-3 flex items-center text-green-500 hover:text-green-600">
                 <CheckCircleIcon />
             </button>
         </div>
