@@ -1,6 +1,15 @@
 # Vue3TodoApp
 
-This template should help get you started developing with Vue 3 in Vite.
+This project is a todo app that works with full CRUD functionality. While styling wasn't a priority in this project I aimed to follow WCAG 2.2 accessibility guidelines.
+
+The project uses the below to achieve the end product:
+
+- Axios for API calls
+- Pinia for state management
+- Vue test utils for unit testing (pinia testing added to this too)
+- Tailwind for styling with some CSS for conditional rendering
+
+Next steps for this project would be to improve coverage of unit tests, componetise base components rather than using tailwind for individual buttons and look for ways to improve the UX of the app.
 
 ## Recommended IDE Setup
 

@@ -1,7 +1,7 @@
 <script setup>
 import { useSnackbarStore } from '@/stores/SnackbarStore';
 import { storeToRefs } from 'pinia';
-import CloseIcon from './icons/CloseIcon.vue';
+import CloseIcon from '@/components/icons/CloseIcon.vue';
 
 const snackbarStore = useSnackbarStore();
 const { type, title, show } = storeToRefs(snackbarStore);
@@ -11,7 +11,7 @@ const { type, title, show } = storeToRefs(snackbarStore);
     <transition name="slide" appear>
         <div class="fixed top-16 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 max-w-xs w-[80vw] rounded-lg p-4" :class="type" v-if="show">
             <div class="flex justify-between items-center m-2">
-                <div class="m-0 font-semibold">{{ title }}</div>
+                <div id="title" class="m-0 font-semibold">{{ title }}</div>
                 <CloseIcon class="w-11 cursor-pointer transition-opacity m-0 hover:opacity-80" @click="snackbarStore.closeSnackbar()" />
             </div>
         </div>

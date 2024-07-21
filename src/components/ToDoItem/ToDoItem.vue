@@ -1,17 +1,13 @@
 <script setup>
 import { useToDoStore } from '@/stores/ToDoStore';
 import { computed, ref, watchEffect } from 'vue';
-import DeleteIcon from './icons/DeleteIcon.vue';
-import CloseIcon from './icons/CloseIcon.vue';
-import EditIcon from './icons/EditIcon.vue';
+import DeleteIcon from '@/components/icons/DeleteIcon.vue';
+import CloseIcon from '@/components/icons/CloseIcon.vue';
+import EditIcon from '@/components/icons/EditIcon.vue';
 import CheckCircleIcon from '@/components/icons/CheckCircleIcon.vue';
 
 const props = defineProps({
     todo: {
-        type: String,
-        required: true
-    },
-    description: {
         type: String,
         required: true
     },
@@ -41,9 +37,9 @@ const updateTodoText = () => {
 </script>
 
 <template>
-    <div class="p-4 flex items-center justify-between gap-4 bg-slate-200 rounded-xl border border-gray-400 shadow-md">
+    <div data-test="todo-item" class="p-4 flex items-center justify-between gap-4 bg-slate-200 rounded-xl border border-gray-400 shadow-md">
         <!-- Added title for tooltip of full text -->
-        <div v-if="editable" class="w-full relative"> 
+        <div v-if="editable" class="w-full relative">
             <input type="text" :title="todoText" :value="todoText" @input="todoText = $event.target.value" @keyup.enter="updateTodoText()" class="w-full border border-slate-300 rounded-lg h-10 p-4 pr-10" />
             <button @click="updateTodoText()" @keyup.enter="updateTodoText()" class="absolute inset-y-0 right-0 pr-3 flex items-center text-green-500 hover:text-green-600">
                 <CheckCircleIcon />

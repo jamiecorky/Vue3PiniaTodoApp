@@ -27,9 +27,10 @@ export const useToDoStore = defineStore('ToDos', () => {
             const response = await axios.post('https://dummyjson.com/todos/add', {
                 todo: toDo,
                 completed: false,
-                userId: 1
+                userId: 2
             });
             if (response.status === 201) {
+                console.log(response.data.id);
                 // Because this post request doesn't actually update data on the server, I'm pushing to the array as if it was updated. Usually I'd run getInitialToDos() to repopulate
                 const newToDo = {
                     todo: toDo,
@@ -37,6 +38,7 @@ export const useToDoStore = defineStore('ToDos', () => {
                     id: response.data.id,
                     userId: response.data.userId
                 };
+                // Every new todo from the response has an id of 255
                 toDos.value.push(newToDo);
                 snackbarStore.openSnackbar('Todo added', 'success');
             }
@@ -116,6 +118,7 @@ export const useToDoStore = defineStore('ToDos', () => {
         }
     };
 
+    // This errors on newly created todos because dummyjson doesn't like id: 255 which is what they give new todos
     const deleteToDo = async (id) => {
         try {
             const response = await axios.delete(`https://dummyjson.com/todos/${id}`);

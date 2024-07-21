@@ -1,7 +1,7 @@
 <script setup>
 import { computed, ref } from 'vue';
 import { useToDoStore } from '@/stores/ToDoStore';
-import ToDoItem from '@/components/ToDoItem.vue';
+import ToDoItem from '@/components/ToDoItem/ToDoItem.vue';
 
 const props = defineProps({
     title: {

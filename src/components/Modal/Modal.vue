@@ -19,7 +19,7 @@ let modalStore = useModalStore();
                 <slot name="footer">
                     <button
                         id="close-modal"
-                        class="bg-slate-300 rounded-xl px-3 py-2 hover:bg-slate-400"
+                        class="bg-slate-300 rounded-lg px-3 py-2 hover:bg-slate-400"
                         @click="modalStore.closeModal()"
                     >
                         close
